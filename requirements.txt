@@ -1,0 +1,4 @@
+python-osc
+pyaudio
+DMXEnttecPro
+aubio
