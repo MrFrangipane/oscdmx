@@ -18,7 +18,7 @@ def _handle(address, value):
     global clients
     global shared
 
-    print(address, value)
+    #print(address, value)
 
     if address == '/octostrip/color_hue':
         shared.color = colorsys.hsv_to_rgb(value/255.0, 1.0, 1.0)
@@ -30,7 +30,7 @@ def _handle(address, value):
         bar_index = int(address[-1]) - 1
         shared.debug[bar_index] = value
 
-    elif address.startswith('/octostrip/color_mode/'):
+    elif address.startswith('/octostrip/color_mode/') and value:
         mode_index = int(address[-3]) - 1
         shared.color_mode = mode_index
 

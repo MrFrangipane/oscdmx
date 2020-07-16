@@ -2,10 +2,10 @@
 
 class Shared:
     COLOR_MANUAL = 0
-    COLOR_AUTO_EIGTH = 1
-    COLOR_AUTO_FOURTH = 2
-    COLOR_AUTO_HALF = 3
-    COLOR_AUTO_NORMAL = 4
+    COLOR_AUTO_NORMAL = 1
+    COLOR_AUTO_HALF = 2
+    COLOR_AUTO_FOURTH = 3
+    COLOR_AUTO_EIGTH = 4
 
     def __init__(self):
         self.bpm = 0
@@ -13,7 +13,7 @@ class Shared:
         self.confidence = 0
         self.color = 1, 1, 1
 
-        self.color_mode = self.COLOR_AUTO_EIGTH
+        self.color_mode = self.COLOR_MANUAL
 
         self.debug_on = True
         self.debug = [0.0] * 8
