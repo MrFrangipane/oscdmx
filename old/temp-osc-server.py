@@ -3,7 +3,6 @@
 This program listens to several addresses, and prints some information about
 received packets.
 """
-import time
 import argparse
 from pythonosc import dispatcher
 from pythonosc import osc_server
@@ -83,7 +82,7 @@ if __name__ == "__main__":
         {2: 255, 5: 250},
     ]
 
-    program = [
+    program2 = [
         {2: 255, 3: 255, 4: 255,},
         {2: 255, 3: 255, 4: 255,},
         {2: 255, 3: 255, 4: 255,},
