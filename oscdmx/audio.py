@@ -34,7 +34,7 @@ def _audio_callback(in_data, frame_count, time_info, status):
     beat = tempo(signal)
     confidence = tempo.get_confidence()
 
-    if beat[0] and confidence > 0.1:
+    if beat[0] and confidence > 0.02:
         shared.bpm = tempo.get_bpm()
         shared.last_beat = time.time()
         shared.confidence = confidence

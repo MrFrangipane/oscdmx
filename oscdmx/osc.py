@@ -1,19 +1,45 @@
-import time
+import colorsys
+from pythonosc import dispatcher
+from pythonosc import osc_server
 
 
-def run(shared):
-    last_beat = 0
-    previous_last_beat = 0
+HOST = '0.0.0.0'
+PORT_IN = 8000
+PORT_OUT = 9000
 
-    clients = list()
+shared = None
+clients = dict()
 
-    while True:
-        # Wait for beat
-        while last_beat == previous_last_beat:
-            info = shared.get()
-            last_beat = info['last_beat']
-            time.sleep(0.01)
-        previous_last_beat = last_beat
+dispatcher_ = dispatcher.Dispatcher()
+server = osc_server.ThreadingOSCUDPServer((HOST, PORT_IN), dispatcher_)
 
-        # Do stuff
-        print(shared)
+
+def _handle(address, value):
+    global clients
+    global shared
+
+    print(address, value)
+
+    if address == '/octostrip/color_hue':
+        shared.color = colorsys.hsv_to_rgb(value/255.0, 1.0, 1.0)
+
+    elif address == '/octostrip/debug':
+        shared.debug_on = value
+
+    elif address.startswith('/octostrip/debug_select/1/'):
+        bar_index = int(address[-1]) - 1
+        shared.debug[bar_index] = value
+
+    elif address.startswith('/octostrip/color_mode/'):
+        mode_index = int(address[-3]) - 1
+        shared.color_mode = mode_index
+
+
+def run(shared_):
+    global shared
+    global server
+
+    shared = shared_
+
+    server.dispatcher.set_default_handler(_handle)
+    server.serve_forever()
