@@ -4,7 +4,7 @@ import pyaudio
 import numpy as np
 
 
-BUFFER_SIZE = 128
+BUFFER_SIZE = 256
 
 tempo = None
 shared = None
