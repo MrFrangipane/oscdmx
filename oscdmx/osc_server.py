@@ -18,7 +18,7 @@ def _handle(address, value):
     global clients
     global shared
 
-    #print(address, value)
+    print(address, value)
 
     if address == '/rainbow/color':
         shared.color = colorsys.hsv_to_rgb(value/255.0, 1.0, 1.0)
@@ -36,6 +36,10 @@ def _handle(address, value):
     elif address.startswith('/rainbow/speed_color/') and value:
         mode_index = int(address[-3]) - 1
         shared.color_mode = mode_index
+
+    elif address.startswith('/rainbow/speed_lightness/') and value:
+        mode_index = int(address[-3]) - 1
+        shared.phase_mode = mode_index
 
 
 def run(shared_):

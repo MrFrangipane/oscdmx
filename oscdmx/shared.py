@@ -6,6 +6,12 @@ class Shared:
     COLOR_AUTO_HALF = 2
     COLOR_AUTO_FOURTH = 3
     COLOR_AUTO_EIGTH = 4
+
+    PHASE_NORMAL = 0
+    PHASE_HALF = 1
+    PHASE_FOURTH = 2
+    PHASE_EIGTH = 3
+
     BPM_DEFAULT = 30
 
     def __init__(self):
@@ -15,6 +21,7 @@ class Shared:
         self.color = 1, 1, 1
 
         self.color_mode = self.COLOR_MANUAL
+        self.phase_mode = self.PHASE_NORMAL
 
         self.detection_reset = False
 
