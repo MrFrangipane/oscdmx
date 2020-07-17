@@ -3,6 +3,14 @@ from DMXEnttecPro import Controller
 from . import dmx_programs
 
 
+PROGRAMS = [
+    dmx_programs.steps,
+    dmx_programs.debug,
+    dmx_programs.debug,
+    dmx_programs.rainbow_wave
+]
+
+
 class Phase:
     def __init__(self):
         self._last_time = time.time()
@@ -46,7 +54,7 @@ def run(shared):
 
         else:
             phase.update(last_beat, bpm)
-            dmx_programs.rainbow_wave(shared, dmx, phase)
+            PROGRAMS[shared.program_index](shared, dmx, phase)
 
         dmx.submit()
         time.sleep(0.01)

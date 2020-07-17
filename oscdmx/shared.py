@@ -20,6 +20,8 @@ class Shared:
         self.confidence = 0
         self.color = 1, 1, 1
 
+        self.program_index = 3
+
         self.color_mode = self.COLOR_MANUAL
         self.phase_mode = self.PHASE_NORMAL
 
