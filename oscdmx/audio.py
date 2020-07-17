@@ -38,7 +38,6 @@ def _audio_callback(in_data, frame_count, time_info, status):
     global samplerate
 
     if shared.detection_reset:
-        print("RESET")
         tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, samplerate)
         shared.bpm = shared.BPM_DEFAULT
         shared.detection_reset = False

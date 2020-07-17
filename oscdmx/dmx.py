@@ -1,6 +1,6 @@
 import time
 from DMXEnttecPro import Controller
-from .dmx_programs import rainbow_wave
+from . import dmx_programs
 
 
 class Phase:
@@ -42,15 +42,11 @@ def run(shared):
         bpm = info['bpm']
 
         if shared.debug_on:
-            for bar in range(8):
-                start = 6 * bar
-                dmx.set_channel(start + 2, int(shared.color[0] * 255 * shared.debug[bar]))
-                dmx.set_channel(start + 3, int(shared.color[1] * 255 * shared.debug[bar]))
-                dmx.set_channel(start + 4, int(shared.color[2] * 255 * shared.debug[bar]))
+            dmx_programs.debug(shared, dmx, phase)
 
         else:
             phase.update(last_beat, bpm)
-            rainbow_wave(shared, dmx, phase)
+            dmx_programs.rainbow_wave(shared, dmx, phase)
 
         dmx.submit()
         time.sleep(0.01)

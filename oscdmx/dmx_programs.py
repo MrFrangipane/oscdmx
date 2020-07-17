@@ -2,6 +2,14 @@ import math
 import colorsys
 
 
+def debug(shared, dmx, phase):
+    for bar in range(8):
+        start = 6 * bar
+        dmx.set_channel(start + 2, int(shared.color[0] * 255 * shared.debug[bar]))
+        dmx.set_channel(start + 3, int(shared.color[1] * 255 * shared.debug[bar]))
+        dmx.set_channel(start + 4, int(shared.color[2] * 255 * shared.debug[bar]))
+
+
 def rainbow_wave(shared, dmx, phase):
     cos_1 = math.cos(phase.one * 2.0 * math.pi) * 0.5 + 0.5
     cos_2 = math.cos((phase.one + 0.125) * 2.0 * math.pi) * 0.5 + 0.5
