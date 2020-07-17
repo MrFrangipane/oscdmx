@@ -16,7 +16,7 @@ def run(shared, server_ip):
         bpm_label = "BPM : {:.1f}".format(shared.bpm)
         client.send_message('/bpm/label', bpm_label)
 
-        bpm_confidence = "CONFIDENCE : {:.2f}".format(shared.confidence)
+        bpm_confidence = "{:.1f}".format(now) # "CONFIDENCE : {:.2f}".format(shared.confidence)
         client.send_message('/bpm/confidence', bpm_confidence)
 
         if now - shared.last_beat < INTERVAL:
