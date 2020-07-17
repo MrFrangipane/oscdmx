@@ -3,7 +3,7 @@ from pythonosc import udp_client
 
 
 PORT_OUT = 9000
-INTERVAL = 0.05
+INTERVAL = 0.1
 
 
 def run(shared, server_ip):
