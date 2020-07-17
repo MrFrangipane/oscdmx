@@ -23,6 +23,9 @@ def _handle(address, value):
     if address == '/octostrip/color_hue':
         shared.color = colorsys.hsv_to_rgb(value/255.0, 1.0, 1.0)
 
+    elif address == '/octostrip/detection_reset' and value:
+        shared.detection_reset = True
+
     elif address == '/octostrip/debug':
         shared.debug_on = value
 

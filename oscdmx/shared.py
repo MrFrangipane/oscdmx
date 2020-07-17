@@ -6,16 +6,19 @@ class Shared:
     COLOR_AUTO_HALF = 2
     COLOR_AUTO_FOURTH = 3
     COLOR_AUTO_EIGTH = 4
+    BPM_DEFAULT = 30
 
     def __init__(self):
-        self.bpm = 0
+        self.bpm = self.BPM_DEFAULT
         self.last_beat = 0
         self.confidence = 0
         self.color = 1, 1, 1
 
         self.color_mode = self.COLOR_MANUAL
 
-        self.debug_on = True
+        self.detection_reset = False
+
+        self.debug_on = False
         self.debug = [0.0] * 8
 
     def get(self):

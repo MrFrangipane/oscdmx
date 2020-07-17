@@ -8,12 +8,16 @@ BUFFER_SIZE = 128
 
 tempo = None
 shared = None
+samplerate = None
 
 
-def start(samplerate, shared_):
+def start(samplerate_, shared_):
     global shared
     global tempo
+    global samplerate
+
     shared = shared_
+    samplerate = samplerate_
 
     tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, samplerate)
 
@@ -29,8 +33,16 @@ def start(samplerate, shared_):
 
 
 def _audio_callback(in_data, frame_count, time_info, status):
-    global shared
     global tempo
+    global shared
+    global samplerate
+
+    if shared.detection_reset:
+        print("RESET")
+        tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, samplerate)
+        shared.bpm = shared.BPM_DEFAULT
+        shared.detection_reset = False
+
     signal = np.frombuffer(in_data, dtype=np.float32)
     beat = tempo(signal)
     confidence = tempo.get_confidence()
