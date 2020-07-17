@@ -20,20 +20,20 @@ def _handle(address, value):
 
     #print(address, value)
 
-    if address == '/octostrip/color_hue':
+    if address == '/rainbow/color':
         shared.color = colorsys.hsv_to_rgb(value/255.0, 1.0, 1.0)
 
-    elif address == '/octostrip/detection_reset' and value:
+    elif address == '/bpm/reset_detection' and value:
         shared.detection_reset = True
 
-    elif address == '/octostrip/debug':
+    elif address == '/debug/on':
         shared.debug_on = value
 
-    elif address.startswith('/octostrip/debug_select/1/'):
+    elif address.startswith('/debug/select/1/'):
         bar_index = int(address[-1]) - 1
         shared.debug[bar_index] = value
 
-    elif address.startswith('/octostrip/color_mode/') and value:
+    elif address.startswith('/rainbow/speed_color/') and value:
         mode_index = int(address[-3]) - 1
         shared.color_mode = mode_index
 
