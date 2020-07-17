@@ -2,25 +2,26 @@ import time
 import aubio
 import pyaudio
 import numpy as np
-from .shared import Shared
 
 
 BUFFER_SIZE = 128
-SAMPLERATE = 44100
 
-shared = Shared()
-tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, SAMPLERATE)
+tempo = None
+shared = None
 
 
-def start(shared_):
+def start(samplerate, shared_):
     global shared
+    global tempo
     shared = shared_
+
+    tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, samplerate)
 
     py_audio = pyaudio.PyAudio()
     stream = py_audio.open(
         format=pyaudio.paFloat32,
         channels=1,
-        rate=SAMPLERATE,
+        rate=samplerate,
         input=True,
         frames_per_buffer=BUFFER_SIZE,
         stream_callback=_audio_callback
