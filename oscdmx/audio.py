@@ -4,7 +4,7 @@ import pyaudio
 import numpy as np
 
 
-BUFFER_SIZE = 256
+BUFFER_SIZE = 128
 
 tempo = None
 shared = None
@@ -38,7 +38,6 @@ def _audio_callback(in_data, frame_count, time_info, status):
     global samplerate
 
     if shared.detection_reset:
-        print("DETECTION RESET")
         tempo = aubio.tempo("default", BUFFER_SIZE * 2, BUFFER_SIZE, samplerate)
         shared.bpm = shared.BPM_DEFAULT
         shared.detection_reset = False

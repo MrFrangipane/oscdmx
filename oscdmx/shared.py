@@ -25,10 +25,10 @@ class Shared:
         self.color_mode = self.COLOR_MANUAL
         self.phase_mode = self.PHASE_NORMAL
 
-        self.detection_reset = False
-
         self.debug_on = False
         self.debug = [0.0] * 8
+
+        self.auto_on = False
 
     def get(self):
         return {'bpm': self.bpm, 'last_beat': self.last_beat}
