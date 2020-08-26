@@ -21,7 +21,7 @@ class OSC:
         self._color_changed = False
 
     def _handle(self, address, value):
-        print(address, value)
+        #print(address, value)
 
         if address == '/rainbow/color':
             self.hue = value

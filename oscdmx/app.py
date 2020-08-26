@@ -6,13 +6,13 @@ from . import osc_client
 from .shared import Shared
 
 
-def main(samplerate, tablet_ip):
+def main(samplerate, tablet_ips):
     shared = Shared()
 
     osc = osc_server.OSC(shared)
 
     thread_osc_server = Thread(target=osc.run)
-    thread_osc_client = Thread(target=osc_client.run, args=(shared, tablet_ip))
+    thread_osc_client = Thread(target=osc_client.run, args=(shared, tablet_ips))
     thread_dmx = Thread(target=dmx.run, args=(shared, ))
 
     thread_osc_server.start()
