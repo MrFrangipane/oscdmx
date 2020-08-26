@@ -4,10 +4,10 @@ from . import dmx_programs
 
 
 PROGRAMS = [
+    dmx_programs.blackout,
+    dmx_programs.rainbow_wave,
     dmx_programs.steps,
-    dmx_programs.debug,
-    dmx_programs.debug,
-    dmx_programs.rainbow_wave
+    dmx_programs.strobe
 ]
 
 
@@ -51,6 +51,9 @@ def run(shared):
 
         if shared.debug_on:
             dmx_programs.debug(shared, dmx, phase)
+
+        elif shared.auto_on:
+            dmx_programs.auto(shared, dmx, phase)
 
         else:
             phase.update(last_beat, bpm)
