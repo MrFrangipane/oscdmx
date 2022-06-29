@@ -12,7 +12,7 @@ class Shared:
     PHASE_FOURTH = 2
     PHASE_EIGTH = 3
 
-    BPM_DEFAULT = 30
+    BPM_DEFAULT = 120
 
     def __init__(self):
         self.bpm = self.BPM_DEFAULT
@@ -25,8 +25,11 @@ class Shared:
         self.color_mode = self.COLOR_MANUAL
         self.phase_mode = self.PHASE_NORMAL
 
-        self.debug_on = False
-        self.debug = [0.0] * 8
+        self.strobe_speed = 0
+        self.is_white = True
+
+        self.debug_channel = 0
+        self.debug_value = 0
 
         self.auto_on = False
 

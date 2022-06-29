@@ -1,22 +1,16 @@
 from threading import Thread
-from . import dmx
-#from . import audio
-from . import osc_server
-from . import osc_client
-from .shared import Shared
+import dmx
+import osc_server
+from shared import Shared
 
 
-def main(samplerate, tablet_ips):
+def main(server_host, server_port, verbose):
     shared = Shared()
 
-    osc = osc_server.OSC(shared)
+    osc = osc_server.OSC(shared, server_host, server_port, verbose)
 
     thread_osc_server = Thread(target=osc.run)
-    thread_osc_client = Thread(target=osc_client.run, args=(shared, tablet_ips))
     thread_dmx = Thread(target=dmx.run, args=(shared, ))
 
     thread_osc_server.start()
-    thread_osc_client.start()
     thread_dmx.start()
-
-    #audio.start(samplerate, shared)

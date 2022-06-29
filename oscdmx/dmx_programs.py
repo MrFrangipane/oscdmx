@@ -2,7 +2,19 @@ import math
 import colorsys
 
 
+BAR_CH_COUNT = 6
+CH_RAINBOW = 1
+CH_RED = 2  # 0 - 255
+CH_GREEN = 3  # 0 - 255
+CH_BLUE = 4  # 0 - 255
+CH_STROBE = 5  # 1 - 20 Hz
+CH_AUTO_CHASE = 6  # SOUND > 240
+
+
 def _color(shared, phase):
+    if shared.is_white:
+        return 1.0, 1.0, 1.0
+
     return {
         shared.COLOR_MANUAL: shared.color,
         shared.COLOR_AUTO_NORMAL: colorsys.hsv_to_rgb(phase.one, 1.0, 1.0),
@@ -24,15 +36,7 @@ def auto(shared, dmx, phase):
 
 
 def debug(shared, dmx, phase):
-    for bar in range(8):
-        start = 6 * bar
-
-        dmx.set_channel(start + 1, 0)
-        dmx.set_channel(start + 2, int(shared.color[0] * 255 * shared.debug[bar]))
-        dmx.set_channel(start + 3, int(shared.color[1] * 255 * shared.debug[bar]))
-        dmx.set_channel(start + 4, int(shared.color[2] * 255 * shared.debug[bar]))
-        dmx.set_channel(start + 5, 0)
-        dmx.set_channel(start + 6, 0)
+    dmx.set_channel(shared.debug_channel, shared.debug_value)
 
 
 def rainbow_wave(shared, dmx, phase):
@@ -98,17 +102,21 @@ def steps(shared, dmx, phase):
 
 
 def strobe(shared, dmx, phase):
-    for i in range(8):
-        channel = i * 6
+    for bar in range(8):
+        i = bar * BAR_CH_COUNT
+        color = _color(shared, phase)
 
-        dmx.set_channel(channel + 1, 0)
-        dmx.set_channel(channel + 2, 255)
-        dmx.set_channel(channel + 3, 255)
-        dmx.set_channel(channel + 4, 255)
-        dmx.set_channel(channel + 5, 248)
-        dmx.set_channel(channel + 6, 0)
+        dmx.set_channel(i + CH_RAINBOW, 0)
+        dmx.set_channel(i + CH_RED, int(color[0] * 255))
+        dmx.set_channel(i + CH_GREEN, int(color[1] * 255))
+        dmx.set_channel(i + CH_BLUE, int(color[2] * 255))
+        dmx.set_channel(i + CH_STROBE, shared.strobe_speed)
+        dmx.set_channel(i + CH_AUTO_CHASE, 0)
 
 
 def blackout(shared, dmx, phase):
-    for i in range(8 * 6):
-        dmx.set_channel(i, 0)
+    for bar in range(8):
+        i = bar * BAR_CH_COUNT
+        dmx.set_channel(i + CH_RED, 0)
+        dmx.set_channel(i + CH_GREEN, 0)
+        dmx.set_channel(i + CH_BLUE, 0)
