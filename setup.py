@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 
 NAME = 'oscdmx'
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 DESCRIPTION = 'OSC and DMX'
 AUTHOR = 'MrFrangipane'
 AUTHOR_EMAIL = 'mr@frangipane.me'

@@ -1,7 +1,7 @@
 from threading import Thread
-import dmx
-import osc_server
-from shared import Shared
+from oscdmx import dmx
+from oscdmx import osc_server
+from oscdmx.shared import Shared
 
 
 def main(server_host, server_port, verbose):
