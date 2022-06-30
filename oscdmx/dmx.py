@@ -1,6 +1,6 @@
 import time
 from DMXEnttecPro import Controller
-import dmx_programs
+from oscdmx import dmx_programs
 
 
 PROGRAMS = [
