@@ -16,7 +16,7 @@ class Shared:
 
     def __init__(self):
         self.bpm = self.BPM_DEFAULT
-        self.last_beat = 0
+        self.bpm_multiplier = 1
         self.confidence = 0
         self.color = 1, 1, 1
 
@@ -34,9 +34,4 @@ class Shared:
         self.auto_on = False
 
     def get(self):
-        return {'bpm': self.bpm, 'last_beat': self.last_beat}
-
-    def __repr__(self):
-        return "bpm: {:.1f}, last beat {:.2f}, confidence {:.3f}".format(
-            self.bpm, self.last_beat, self.confidence
-        )
+        return {'bpm': self.bpm, 'bpm_multiplier': self.bpm_multiplier}

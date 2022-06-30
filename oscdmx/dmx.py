@@ -44,7 +44,7 @@ def run(shared):
 
     while True:
         info = shared.get()
-        phase.update(info['bpm'])
+        phase.update(info['bpm'] * info['bpm_multiplier'])
 
         PROGRAMS[shared.program_index](shared, dmx, phase)
 
