@@ -1,5 +1,15 @@
 
 
+class Par:
+    def __init__(self):
+        self.changed = False
+        self.current = 0
+        self.uv = 0
+        self.amber = 0
+        self.white = 0
+        self.color = 0, 0, 0
+
+
 class Shared:
     COLOR_MANUAL = 0
     COLOR_AUTO_NORMAL = 1
@@ -32,6 +42,8 @@ class Shared:
         self.debug_value = 0
 
         self.auto_on = False
+
+        self.par = Par()
 
     def get(self):
         return {'bpm': self.bpm, 'bpm_multiplier': self.bpm_multiplier}

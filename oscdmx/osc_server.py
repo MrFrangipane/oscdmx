@@ -15,6 +15,10 @@ class OSC:
         self.lightness = 0
         self._color_changed = False
 
+        self.par_hue = 0
+        self.par_lightness = 0
+        self._par_changed = False
+
         self.verbose = verbose
 
         print(f'Serving forever {host}:{port}')
@@ -22,6 +26,9 @@ class OSC:
     def _handle(self, address, value):
         if self.verbose:
             print(address, value)
+
+        #
+        # BARS
 
         if address == '/program_select':
             self.shared.program_index = value
@@ -59,6 +66,38 @@ class OSC:
             self.shared.color = colorsys.hsv_to_rgb(self.hue, 1.0, self.lightness)
             self.shared.is_white = False
             self._color_changed = False
+
+        #
+        # PARS
+
+        elif address == '/par/selector':
+            self.shared.par.current = value
+            self.shared.par.changed = True
+
+        elif address == '/hue/hue':
+            self.par_hue = value
+            self._par_changed = True
+
+        elif address == '/hue_factor':
+            self.par_lightness = value
+            self._par_changed = True
+
+        elif address == '/uv_factor':
+            self.shared.par.uv = value
+            self.shared.par.changed = True
+
+        elif address == '/amber_factor':
+            self.shared.par.amber = value
+            self.shared.par.changed = True
+
+        elif address == '/white_factor':
+            self.shared.par.white = value
+            self.shared.par.changed = True
+
+        if self._par_changed:
+            self.shared.par.color = colorsys.hsv_to_rgb(self.par_hue, 1.0, self.par_lightness)
+            self.shared.par.changed = True
+            self._par_changed = False
 
     def run(self):
         self.server.dispatcher.set_default_handler(self._handle)

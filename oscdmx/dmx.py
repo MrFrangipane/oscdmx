@@ -35,6 +35,16 @@ class Phase:
         return "<Phase(one={:0.2f})>".format(self.one)
 
 
+def par_update(dmx, par_info):
+    offset = dmx_programs.PAR.FIRST_CHANNEL + par_info['current'] * dmx_programs.PAR.CH_COUNT
+    dmx.set_channel(offset + dmx_programs.PAR.CH_RED, int(par_info['color'][0] * 255))
+    dmx.set_channel(offset + dmx_programs.PAR.CH_GREEN, int(par_info['color'][1] * 255))
+    dmx.set_channel(offset + dmx_programs.PAR.CH_BLUE, int(par_info['color'][2] * 255))
+    dmx.set_channel(offset + dmx_programs.PAR.CH_WHITE, int(par_info['white'] * 255))
+    dmx.set_channel(offset + dmx_programs.PAR.CH_AMBER, int(par_info['amber'] * 255))
+    dmx.set_channel(offset + dmx_programs.PAR.CH_UV, int(par_info['uv'] * 255))
+
+
 def run(shared):
     dmx = Controller('/dev/ttyUSB0')
     dmx.set_all_channels(0)
@@ -44,6 +54,12 @@ def run(shared):
 
     while True:
         info = shared.get()
+
+        if shared.par.changed:
+            par_info = vars(shared.par)
+            par_update(dmx, par_info)
+            shared.par.changed = False
+
         phase.update(info['bpm'] * info['bpm_multiplier'])
 
         PROGRAMS[shared.program_index](shared, dmx, phase)

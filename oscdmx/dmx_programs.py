@@ -11,6 +11,17 @@ CH_STROBE = 5  # 1 - 20 Hz
 CH_AUTO_CHASE = 6  # SOUND > 240
 
 
+class PAR:
+    FIRST_CHANNEL = 50
+    CH_COUNT = 6
+    CH_RED = 0
+    CH_GREEN = 1
+    CH_BLUE = 2
+    CH_WHITE = 3
+    CH_AMBER = 4
+    CH_UV = 5
+
+
 def _color(shared, phase):
     if shared.is_white:
         return 1.0, 1.0, 1.0
